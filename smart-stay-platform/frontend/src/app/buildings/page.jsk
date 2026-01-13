@@ -1,0 +1,42 @@
+"use client";
+import { useEffect, useState } from "react";
+import { getUserLocation } from "../../utils/getLocation";
+import { updateLocation, getNearbyBuildings } from "../../services/api";
+
+export default function BuildingsPage() {
+  const [buildings, setBuildings] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBuildings = async () => {
+      try {
+        const token = localStorage.getItem("token"); // JWT token from login
+        const { lat, lng } = await getUserLocation();
+        await updateLocation(token, lat, lng);
+        const nearby = await getNearbyBuildings(token, lat, lng);
+        setBuildings(nearby);
+      } catch (err) {
+        alert("Error fetching buildings: " + err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBuildings();
+  }, []);
+
+  if (loading) return <div>Loading nearby buildings...</div>;
+
+  return (
+    <div>
+      <h1>Nearby Buildings</h1>
+      <ul>
+        {buildings.map((b) => (
+          <li key={b._id}>
+            {b.name} - {b.address}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
