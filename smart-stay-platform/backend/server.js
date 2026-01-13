@@ -1,0 +1,12 @@
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+
+const app = express();
+app.use(express.json());
+
+mongoose.connect(process.env.MONGO_URI);
+
+app.use("/api/auth", require("./routes/auth.routes"));
+
+app.listen(5000, () => console.log("Server running on port 5000"));
