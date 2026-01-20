@@ -17,7 +17,7 @@ if (!MONGO_URI) {
 // ================== ROUTES ==================
 app.use("/api/auth", require("./routes/auth.routes"));
 app.use("/api/users", require("./routes/user.routes"));
-app.use("/api/bookings", require("./routes/booking.routes")); // ✅ booking enabled
+app.use("/api/bookings", require("./routes/booking.routes")); 
 
 // Health check
 app.get("/", (req, res) => {
@@ -36,3 +36,5 @@ mongoose
   .catch((err) => {
     console.error("❌ MongoDB connection error:", err.message);
   });
+
+
