@@ -1,7 +1,7 @@
-import { BASE_URL } from "./config"; // define your backend URL here
+import { BASE_URL } from "./config";
 
 export const updateLocation = async (token, lat, lng) => {
-  const res = await fetch(`${BASE_URL}/location/update`, {
+  const res = await fetch(`${BASE_URL}/users/location`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -10,14 +10,18 @@ export const updateLocation = async (token, lat, lng) => {
     body: JSON.stringify({ lat, lng })
   });
 
-  return res.json();
+  return await res.json();
 };
 
 export const getNearbyBuildings = async (token, lat, lng) => {
-  const res = await fetch(`${BASE_URL}/buildings/nearby?lat=${lat}&lng=${lng}`, {
-    headers: {
-      Authorization: `Bearer ${token}`
+  const res = await fetch(
+    `${BASE_URL}/buildings/nearby?lat=${lat}&lng=${lng}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     }
-  });
-  return res.json();
+  );
+
+  return await res.json();
 };

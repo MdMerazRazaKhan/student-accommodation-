@@ -1,7 +1,7 @@
-const User = require("../models/user.model");
-const OTP = require("../models/otp.model");
-const sendOtp = require("../utils/sendOtp");
-const generateToken = require("../utils/generateToken");
+const User = require("../models/user.model.js");
+const OTP = require("../models/otp.model.js");
+const sendOtp = require("../utils/sendOtp.js");
+const generateToken = require("../utils/generateToken.js");
 
 exports.sendOTP = async (req, res) => {
   const { phone } = req.body;
